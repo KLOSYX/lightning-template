@@ -60,8 +60,8 @@ class MNISTModel(LightningModule):
     def configure_optimizers(self):
         return torch.optim.Adam(params=self.parameters(), lr=self.hparams.learning_rate)
 
-    def configure_callbacks(self):
-        callbacks_kargs = {"monitor": "val/acc", "mode": "max"}
-        early_stopping = EarlyStopping(patience=5, **callbacks_kargs)
-        model_checkpoint = ModelCheckpoint(**callbacks_kargs)
-        return [early_stopping, model_checkpoint]
+    # def configure_callbacks(self):
+    #     callbacks_kargs = {"monitor": "val/acc", "mode": "max"}
+    #     early_stopping = EarlyStopping(patience=5, **callbacks_kargs)
+    #     model_checkpoint = ModelCheckpoint(**callbacks_kargs)
+    #     return [early_stopping, model_checkpoint]
