@@ -21,7 +21,9 @@ Trainer.log_dir = log_dir
 
 
 def __resolve_ckpt_dir(self, trainer: Trainer) -> None:
-    """Determines model checkpoint save directory at runtime. References attributes from the trainer's logger
+    """Determines model checkpoint save directory at runtime.
+
+    References attributes from the trainer's logger
     to determine where to save checkpoints. The base path for saving weights is set in this priority:
     1.  Checkpoint callback's path (if passed in)
     2.  The default_root_dir from trainer if trainer has no logger

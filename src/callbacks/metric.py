@@ -22,18 +22,13 @@ class Metric(Callback):
     ) -> None:
         metrics = {}
         if stage == TrainerFn.FITTING:
-            if (
-                trainer.checkpoint_callback
-                and trainer.checkpoint_callback.best_model_path
-            ):
+            if trainer.checkpoint_callback and trainer.checkpoint_callback.best_model_path:
                 ckpt_path = trainer.checkpoint_callback.best_model_path
                 # inhibit disturbing logging
                 logging.getLogger("pytorch_lightning.utilities.distributed").setLevel(
                     logging.WARNING
                 )
-                logging.getLogger("pytorch_lightning.accelerators.gpu").setLevel(
-                    logging.WARNING
-                )
+                logging.getLogger("pytorch_lightning.accelerators.gpu").setLevel(logging.WARNING)
 
                 fn_kwargs = {
                     "model": pl_module,

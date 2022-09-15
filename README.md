@@ -4,7 +4,7 @@ A clean and scalable template to structure ML paper-code the same so that work c
 
 ### DELETE EVERYTHING ABOVE FOR YOUR PROJECT
 
----
+______________________________________________________________________
 
 <div align="center">
 
@@ -18,10 +18,13 @@ A clean and scalable template to structure ML paper-code the same so that work c
 </div>
 
 ## Description
+
 What it does
 
 ## How to run
+
 First, install dependencies
+
 ```console
 # clone project
 git clone https://github.com/YourGithubName/your-repository-name
@@ -36,11 +39,13 @@ pip install -r requirements.txt
 ```
 
 Next, to obtain the main results of the paper:
+
 ```console
 # commands to get the main results
 ```
 
 You can also run experiments with the `run` script.
+
 ```console
 # fit with the demo config
 ./run fit --config configs/demo.yaml
@@ -56,6 +61,7 @@ You can also run experiments with the `run` script.
 ```
 
 ## Citation
+
 ```
 @article{YourName,
   title={Your Title},

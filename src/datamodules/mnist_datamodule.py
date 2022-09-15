@@ -27,9 +27,7 @@ class MNISTDataModule(LightningDataModule):
 
     def setup(self, stage: Optional[str] = None) -> None:
         if not self.data:
-            dataset = MNIST(
-                self.hparams.data_dir, train=True, transform=self.transforms
-            )
+            dataset = MNIST(self.hparams.data_dir, train=True, transform=self.transforms)
             self.data["train"], self.data["val"] = random_split(dataset, [55000, 5000])
 
             self.data["test"] = MNIST(

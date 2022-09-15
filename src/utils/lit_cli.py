@@ -36,7 +36,7 @@ class LitCLI(LightningCLI):
             config.trainer.logger = None
 
         logger = config.trainer.logger
-        assert logger != True, "should assign trainer.logger with the specific logger."
+        assert logger is not True, "should assign trainer.logger with the specific logger."
         if logger:
             loggers = logger if isinstance(logger, Iterable) else [logger]
             for logger in loggers:

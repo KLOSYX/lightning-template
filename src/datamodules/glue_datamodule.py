@@ -7,9 +7,7 @@ from pytorch_lightning import LightningDataModule
 from pytorch_lightning.utilities.types import EVAL_DATALOADERS, TRAIN_DATALOADERS
 from torch.utils.data import DataLoader
 
-warnings.filterwarnings(
-    "ignore", ".*Consider increasing the value of the `num_workers` argument*"
-)
+warnings.filterwarnings("ignore", ".*Consider increasing the value of the `num_workers` argument*")
 
 TASK_NAME = Literal[
     "cola",
@@ -74,7 +72,9 @@ class GLUEDataModule(LightningDataModule):
         if not hasattr(self, "datasets"):
             convert_to_features = self.trainer.model.convert_to_features
             preprocess_fn = partial(self._preprocess, text_fields=self.text_fields)
-            preprocess = lambda x: convert_to_features(preprocess_fn(x))
+
+            def preprocess(x):
+                convert_to_features(preprocess_fn(x))
 
             datasets = load_dataset("glue", self.task_name)
             columns_names = self.text_fields + ["label", "idx"]

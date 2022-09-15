@@ -11,9 +11,7 @@ signal(SIGPIPE, SIG_DFL)
 
 
 def main(args: argparse.Namespace):
-    """
-    Prints results from an `argparse.Namespace` object.
-    """
+    """Prints results from an `argparse.Namespace` object."""
     path = args.path
     metrics_name = args.metrics_filename
     keys = args.keys

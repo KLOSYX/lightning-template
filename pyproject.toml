@@ -1,11 +1,11 @@
 # https://github.com/psf/black
 [tool.black]
-line-length = 88
+line-length = 99
 
 # https://github.com/timothycrosley/isort/
 [tool.isort]
 profile = "black"
-line_length = 88
+line_length = 99
 combine_as_imports = true
 combine_star = true
 

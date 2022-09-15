@@ -5,7 +5,12 @@ import datasets
 import torch
 from pytorch_lightning import LightningModule
 from pytorch_lightning.utilities.types import EPOCH_OUTPUT, STEP_OUTPUT
-from transformers import AutoTokenizer, PreTrainedTokenizer, get_scheduler
+from transformers import (
+    AutoModelForSequenceClassification,
+    AutoTokenizer,
+    PreTrainedTokenizer,
+    get_scheduler,
+)
 
 
 class GLUETransformer(LightningModule):
@@ -28,9 +33,7 @@ class GLUETransformer(LightningModule):
         self.convert_to_features = partial(
             self._convert_to_features, tokenizer=tokenizer, max_length=max_length
         )
-        self.model = AutoModelForSequenceClassification.from_pretrained(
-            model_name_or_path
-        )
+        self.model = AutoModelForSequenceClassification.from_pretrained(model_name_or_path)
         self.metric = datasets.load_metric("glue", task_name)
 
     def forward(self, batch):
@@ -91,9 +94,7 @@ class GLUETransformer(LightningModule):
 
         metrics = {
             f"{step}/{k}": v
-            for k, v in self.metric.compute(
-                predictions=preds, references=labels
-            ).items()
+            for k, v in self.metric.compute(predictions=preds, references=labels).items()
         }
 
         self.log(f"{step}/loss", loss)
@@ -115,7 +116,7 @@ class GLUETransformer(LightningModule):
                 "params": [
                     p
                     for n, p in self.model.named_parameters()
-                    if not any(nd in n for nd in no_decay)
+                    if not any(n_d in n for n_d in no_decay)
                 ],
                 "weight_decay": self.hparams.weight_decay,
             },
@@ -123,7 +124,7 @@ class GLUETransformer(LightningModule):
                 "params": [
                     p
                     for n, p in self.model.named_parameters()
-                    if any(nd in n for nd in no_decay)
+                    if any(n_d in n for n_d in no_decay)
                 ],
                 "weight_decay": 0.0,
             },
