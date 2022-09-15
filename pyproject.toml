@@ -8,14 +8,3 @@ profile = "black"
 line_length = 99
 combine_as_imports = true
 combine_star = true
-
-# https://github.com/hadialqattan/pycln
-[tool.pycln]
-all = true
-
-# https://github.com/microsoft/pyright
-[tool.pyright]
-include = ["src"]
-venv = "template"
-typeCheckingMode = "off"
-useLibraryCodeForTypes = true
