@@ -3,6 +3,6 @@ seed_everything: 123
 trainer:
   max_epochs: 20
 model:
-  class_path: MNISTModel
+  class_path: src.models.mnist_model.MNISTModel
 data:
-  class_path: MNISTDataModule
+  class_path: src.datamodules.mnist_datamodule.MNISTDataModule

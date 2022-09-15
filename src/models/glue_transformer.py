@@ -5,7 +5,7 @@ import datasets
 import torch
 from pytorch_lightning import LightningModule
 from pytorch_lightning.utilities.types import EPOCH_OUTPUT, STEP_OUTPUT
-from transformers import AutoModel, AutoTokenizer, PreTrainedTokenizer, get_scheduler
+from transformers import AutoTokenizer, PreTrainedTokenizer, get_scheduler
 
 
 class GLUETransformer(LightningModule):
