@@ -1,5 +1,6 @@
 name: mnist
 seed_everything: 123
+monitor: val/acc
 trainer:
   max_epochs: 20
 model:

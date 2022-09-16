@@ -1,15 +1,27 @@
 import argparse
 import os
 from collections import defaultdict
-from typing import Any, Iterable
+from typing import Any, Iterable, Optional
 
 import shtab
 from pytorch_lightning.cli import LightningArgumentParser, LightningCLI
 
 
+def infer_metric_mode(metric: str) -> str:
+    lower_is_better = ["loss"]
+    metric = metric.lower()
+    for m in lower_is_better:
+        if m in metric:
+            return "min"
+    return "max"
+
+
 class LitCLI(LightningCLI):
     def add_arguments_to_parser(self, parser: LightningArgumentParser) -> None:
         parser.add_argument("-n", "--name", default=None, help="Experiment name")
+        parser.add_argument(
+            "-m", "--monitor", type=str, help="Monitor in EarlyStop and ModelCheckpoint callbacks"
+        )
         parser.add_argument(
             "-d",
             "--debug",
@@ -17,13 +29,6 @@ class LitCLI(LightningCLI):
             action=argparse.BooleanOptionalAction,
             help="Debug mode",
         )
-
-        for arg in ["num_labels", "task_name"]:
-            parser.link_arguments(
-                f"data.init_args.{arg}",
-                f"model.init_args.{arg}",
-                apply_on="instantiate",
-            )
 
     def before_instantiate_classes(self) -> None:
         config = self.config[self.subcommand]
@@ -45,6 +50,16 @@ class LitCLI(LightningCLI):
                 )
                 if config.name:
                     logger.init_args.name = config.name
+
+        for cb in config.trainer.callbacks:
+            if cb.class_path.split(".")[-1] in ["EarlyStopping", "ModelCheckpoint"]:
+                monitor: Optional[str] = config.get("monitor", None)
+                assert (
+                    monitor is not None
+                ), "When mode in callback is set to be auto, monitor must be defined!"
+
+                cb.init_args.mode = infer_metric_mode(monitor)
+                cb.init_args.monitor = monitor
 
     def setup_parser(
         self,

@@ -6,6 +6,19 @@ trainer:
       init_args:
         max_depth: 1
     - class_path: pytorch_lightning.callbacks.RichProgressBar
+    - class_path: pytorch_lightning.callbacks.EarlyStopping
+      init_args:
+        monitor: ???
+        mode: auto
+        verbose: True
+        patience: 3
+    - class_path: pytorch_lightning.callbacks.ModelCheckpoint
+      init_args:
+        monitor: ???
+        mode: auto
+        verbose: True
+        save_last: True
+        save_top_k: 1
   logger:
     class_path: TensorBoardLogger
     init_args:
