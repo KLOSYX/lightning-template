@@ -5,7 +5,7 @@ pytorch-lightning[extra] >= 1.7.0
 shtab >= 1.5.4
 
 transformers >= 4.20.0
-datasets >= 2.4.0
+datasets >= 4.8.4
 # for GLUE datasets
 scikit-learn
 
