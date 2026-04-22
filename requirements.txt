@@ -4,7 +4,7 @@ torchvision >= 0.13.0
 pytorch-lightning[extra] >= 1.7.0
 shtab >= 1.5.4
 
-transformers >= 4.20.0
+transformers >= 5.5.4
 datasets >= 2.4.0
 # for GLUE datasets
 scikit-learn
